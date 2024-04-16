@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block mainContent %}
+
+<div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h2 class="display-8">Ежемесячный платеж для ипотеки под 9% годовых</h2>
+        <p class="lead">Введите необходимые данные</p>
+          <h5>
+              <form  action="{{url_for('result')}}" method="post">
+                  <label class="form-label">Стоимость недвижимости</label>
+                  <input type="range" class="form-range" min="2000000" max="30000000" step="100000" id="summ" name="_summ" oninput="sum_res.value = summ.value" required> <br />
+                  <output name="sum_res" for="summ" >{{summa}}</output><br /><br />
+
+                  <label class="form-label">Первоначальный взнос</label>
+                  <div class="row">
+                      <div class="col-lg-4 col-md-3">
+                          <input type="number" class="form-control" name="_first_pay" placeholder="Введите первоначальный взнос" required><br />
+                      </div>
+
+                  </div>
+
+                  <label>Срок кредита, лет</label><br/>
+                  <input type="range" id="years" min="5" max="30" step="1" value="{{timeline}}" name="_years" oninput="months_res.value = years.value" required> <br />
+                  <output name="months_res" for="years"  >{{timeline}}</output><br />
+
+
+                  <div class="container" align="center">
+
+                      <div align="center">
+                         <input  type="submit" value="Рассчитать" class="btn btn-primary" required><br/>
+                      </div>
+
+                      <h6>
+                           <div class="col-lg-1" style="width:300px; float:right; font-size:16px; font:'verdana'">
+                               <div class="alert {{color}}">{{note}}</div>
+                           </div>
+                      </h6>
+
+                  </div>
+
+
+                  <div align="center" class="row mt-3">
+                      <div align="center"  class="col-lg-3">
+                          <label>Ежемесячный платеж:</label><br/>
+                          <input type="number" class="form-control" placeholder="Результат" value="{{result}}">
+                      </div>
+                  </div>
+
+
+              </form>
+
+
+          </h5>
+      </div>
+    </div>
+
+
+
+
+
+{% endblock %}
