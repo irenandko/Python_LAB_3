@@ -19,10 +19,11 @@ def result():
         years = int(request.form["_years"])
 
     rule = ceil(credit * 0.2)
+    maxi = ceil(credit * 0.7)
     note = ''
     color = "alert-success"
 
-    if(first_pay >= rule ):
+    if(maxi >= first_pay >= rule):
         note = 'Расчет проведен верно'
         percent = 0.0075
         k = (percent * (1 + percent) ** (years * 12)) / ((1 + percent) ** (years * 12) - 1)
@@ -33,9 +34,21 @@ def result():
         payment_f = first_pay
 
         return render_template("calc.html", result=monthly_payment, note=note, color=color, timeline=timeline, summa=summa, payment_f=payment_f)
-    else:
-        note = ('Первоначальный платеж должен быть\nне менее ')+str(rule)+' рублей'
+
+    if(first_pay >=  maxi):
+        note = ('Первоначальный платеж должен быть\nне БОЛЕЕ ') + str(maxi) + ' рублей'
         color = "alert-danger"
+
+        timeline = years
+        summa = credit
+        payment_f = first_pay
+
+        return render_template("calc.html", result='Неверные данные', note=note, color=color, timeline=timeline,
+                               summa=summa, payment_f=payment_f)
+
+    else:
+        note = ('Первоначальный платеж должен быть\nне МЕНЕЕ ')+str(rule)+' рублей'
+        color = "alert-warning"
 
         timeline = years
         summa = credit
