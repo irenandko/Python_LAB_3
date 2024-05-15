@@ -1,7 +1,6 @@
 import unittest
-from flask_testing import TestCase
 from math import ceil
-from index import app
+
 
 def result(credit, first_pay, years):
 
@@ -71,5 +70,4 @@ class MyTestCase(unittest.TestCase):
 
 
 
-if __name__ == '__main__':
-    unittest.main()
+MyTestCase()
