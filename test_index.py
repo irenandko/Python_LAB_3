@@ -10,6 +10,11 @@ def result(credit, first_pay, years):
     note = ''
     color = "alert-success"
 
+    if(type(first_pay)!=int or first_pay==None):
+        note = "Alert"
+        return note
+
+
     if(maxi >= first_pay >= rule):
         note = 'Расчет проведен верно'
         percent = 0.0075
@@ -48,10 +53,6 @@ def result(credit, first_pay, years):
 
 class MyTestCase(unittest.TestCase):
 
-    def create_app(self):
-        app.config["TEST"] = True
-        return app
-
     def test_1_normal_data(self):
         self.assertEqual(result(6000000, 1700000, 6), 67510)
 
@@ -60,6 +61,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_3_high_first_payment(self):
         self.assertTrue("не БОЛЕЕ" in result(6000000, 99999999999, 6))
+
+    def test_4_empty_first_payment(self):
+        self.assertTrue("Alert" in result(6000000,None, 6))
+
+    def test_5_literal_first_payment(self):
+        self.assertTrue("Alert" in result(6000000, "ddhsfk", 6))
+
 
 
 
